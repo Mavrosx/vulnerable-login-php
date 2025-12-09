@@ -4,9 +4,8 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main',
-                    credentialsId: 'github-cred',
-                    url: 'https://github.com/Mavrosx/vulnerable-login-php.git'
+                // Usa la configuración de SCM del job
+                checkout scm
             }
         }
 
@@ -28,6 +27,11 @@ pipeline {
                 timeout(time: 10, unit: 'MINUTES') {
                     waitForQualityGate abortPipeline: false
                 }
+            }
+        }
+    }
+}
+
             }
         }
     }
