@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // Usa la configuración de SCM del job
+                // Usar la configuración de SCM del job
                 checkout scm
             }
         }
@@ -12,12 +12,7 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('SonarQube-Local') {
-                    sh '''
-                        sonar-scanner \
-                          -Dsonar.projectKey=login-vulnerable \
-                          -Dsonar.sources=. \
-                          -Dsonar.php.version=8.1
-                    '''
+                    sh 'sonar-scanner -Dsonar.projectKey=login-vulnerable -Dsonar.sources=. -Dsonar.php.version=8.1'
                 }
             }
         }
@@ -31,6 +26,7 @@ pipeline {
         }
     }
 }
+
 
             }
         }
