@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    environment {
+        // Nombre del scanner tal como está en Manage Jenkins → Tools
+        SCANNER_HOME = tool 'sonar-scanner'
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -10,8 +15,13 @@ pipeline {
 
         stage('SonarQube Analysis') {
             steps {
-                script {
-                    sh "sonar-scanner -Dsonar.projectKey=login-vulnerable -Dsonar.sources=. -Dsonar.php.version=8.1"
+                withSonarQubeEnv('SonarQube-Local') {
+                    sh """
+                        ${SCANNER_HOME}/bin/sonar-scanner \
+                          -Dsonar.projectKey=login-vulnerable \
+                          -Dsonar.sources=. \
+                          -Dsonar.php.version=8.1
+                    """
                 }
             }
         }
