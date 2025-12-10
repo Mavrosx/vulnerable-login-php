@@ -15,7 +15,7 @@
         <input type="text" name="username"><br><br>
 
         <label>Contraseña:</label><br>
-        <input type="password" name="password"><br><br>
+        <input type="password" name="password"><br><!--<br>
 
         <button type="submit">Ingresar</button>
     </form>
